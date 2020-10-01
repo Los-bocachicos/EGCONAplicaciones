@@ -7,27 +7,25 @@ CORS(app)
 
 
 @app.route('/aplicaciones', methods=['GET'])
-def obtenerAplicaciones():
-    return Aplicacion.listarAplicaciones()
+def get():
+    return Aplicacion.getAll()
 
 
 @app.route('/aplicaciones', methods=['POST'])
-def agregarAplicacion():
+def post():
     body = request.json
-    print(body)
-    return Aplicacion.crearAplicacion(body)
+    return Aplicacion.post(body)
 
 
-@app.route('/aplicaciones/<idAplicacion>/', methods=['PUT'])
-def actualizarAplicacion(idAplicacion):
+@app.route('/aplicaciones/<idApp>/', methods=['PUT'])
+def put(idApp):
     body = request.json
-    return Aplicacion.actualizarAplicacion(idAplicacion, body)
+    return Aplicacion.put(idApp, body)
 
 
-@app.route('/aplicaciones/<idAplicacion>/', methods=['DELETE'])
-def eliminarAplicacion(idAplicacion):
-    return Aplicacion.eliminarAplicacion(idAplicacion)
+@app.route('/aplicaciones/<idApp>/', methods=['DELETE'])
+def delete(idApp):
+    return Aplicacion.delete(idApp)
 
 
-if __name__ == '__main__':
-    app.run(debug=True, port=3000)
+app.run(debug=True, port=3000)
