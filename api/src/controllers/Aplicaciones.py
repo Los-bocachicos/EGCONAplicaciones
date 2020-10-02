@@ -30,8 +30,6 @@ class Aplicacion:
             return {"message": "Parametros imcompletos: Tipo no enviado"}, 400
         if('lenguaje' not in body):
             return {"message": "Parametros imcompletos: Lenguaje no enviado"}, 400
-        if('fecha_creacion' not in body):
-            return {"message": "Parametros imcompletos: Fecha creacion no enviada"}, 400
         else:
             cur = cnx.cursor()
             data = []

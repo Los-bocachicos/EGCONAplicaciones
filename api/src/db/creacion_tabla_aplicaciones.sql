@@ -7,6 +7,7 @@ CREATE TABLE `evergreen`.`aplicaciones` (
   `puerto` int DEFAULT NULL,
   `estado` int DEFAULT NULL,
   `tipo` int DEFAULT NULL,
+  `imagen` varchar(200) DEFAULT NULL,
   `lenguaje` varchar(200) DEFAULT NULL,
   `servidor` int DEFAULT NULL,
   `version` varchar(45) DEFAULT NULL,
@@ -14,5 +15,3 @@ CREATE TABLE `evergreen`.`aplicaciones` (
   `fecha_actualizacion` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
-
-INSERT INTO `evergreen`.`aplicaciones` (`nombre`, `puerto`, `estado`, `tipo`, `lenguaje`, `servidor`, `version`, `fecha_creacion`, `fecha_actualizacion`) VALUES ('API Aplicaciones', '3000', '1', '1', 'flask - python', '1', '1.0.0', now(), now());
