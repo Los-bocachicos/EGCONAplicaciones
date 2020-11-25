@@ -1,11 +1,16 @@
 import mysql.connector as mysql
-import os
 
-cnx = mysql.MySQLConnection(
-    host="127.0.0.1",
-    port=3306,
-    user=os.environ['DB_USER'],
-    password=os.environ['DB_PASS'],
-    database="evergreen",
-    auth_plugin="mysql_native_password"
-)
+
+class ConexionDB:
+
+    @staticmethod
+    def conexion():
+        cnx = mysql.MySQLConnection(
+            host="34.121.18.138",
+            port=3306,
+            user="elias",
+            password="elias",
+            database="evergreen_con",
+            auth_plugin="mysql_native_password"
+        )
+        return cnx

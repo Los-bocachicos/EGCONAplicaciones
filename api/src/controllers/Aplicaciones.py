@@ -1,5 +1,5 @@
-from flask import jsonify, request
-from db.db import cnx
+from flask import jsonify
+from db.db import ConexionDB
 
 
 class Aplicacion:
@@ -7,9 +7,10 @@ class Aplicacion:
 
     @staticmethod
     def getAll():
+        cnx = ConexionDB.conexion()
         cur = cnx.cursor()
         aplicaciones = []
-        cur.execute('SELECT * FROM evergreen.aplicaciones;')
+        cur.execute('SELECT * FROM v_aplicaciones;')
         rows = cur.fetchall()
         columns = [i[0] for i in cur.description]
         for row in rows:
@@ -18,6 +19,7 @@ class Aplicacion:
             aplicaciones.append(json)
         cnx.commit()
         cur.close()
+        cnx.close()
         return jsonify(aplicaciones)
 
     @staticmethod
@@ -30,7 +32,10 @@ class Aplicacion:
             return {"message": "Parametros imcompletos: Tipo no enviado"}, 400
         if('lenguaje' not in body):
             return {"message": "Parametros imcompletos: Lenguaje no enviado"}, 400
+        if('fecha_creacion' not in body):
+            return {"message": "Parametros imcompletos: Fecha creacion no enviada"}, 400
         else:
+            cnx = ConexionDB.conexion()
             cur = cnx.cursor()
             data = []
             sql = "INSERT INTO aplicaciones SET "
@@ -38,10 +43,12 @@ class Aplicacion:
             cur.execute(sql, data)
             cnx.commit()
             cur.close()
+            cnx.close()
             return {"message": "Aplicacion agregada"}, 201
 
     @staticmethod
     def put(idApp, body):
+        cnx = ConexionDB.conexion()
         cur = cnx.cursor()
         data = []
 
@@ -57,11 +64,13 @@ class Aplicacion:
 
     @staticmethod
     def delete(idApp):
+        cnx = ConexionDB.conexion()
         cur = cnx.cursor()
         sql = "DELETE FROM aplicaciones WHERE id = %s;"
         cur.execute(sql, [idApp])
         cnx.commit()
         cur.close()
+        cnx.close()
         return {"message": "Aplicacion Eliminada"}, 200
 
     @staticmethod

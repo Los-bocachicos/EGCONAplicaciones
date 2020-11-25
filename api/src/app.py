@@ -28,4 +28,4 @@ def delete(idApp):
     return Aplicacion.delete(idApp)
 
 
-app.run(debug=True, port=3000)
+app.run(port=8080)
