@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 import requests
+import os
 
 app = Flask(__name__)
 
@@ -23,5 +24,6 @@ def guardarAplicacion():
   requests.post('http://eliasramos15.pythonanywhere.com/aplicaciones', json=aplicacion)
   return listarAplicaciones()
 
+port = int(os.environ.get('PORT', 8080))
 if __name__ == '__main__':
-  app.run(debug=True)
+    app.run(threaded=True, host='0.0.0.0', port=port)
